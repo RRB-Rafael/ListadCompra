@@ -19,6 +19,7 @@ npm i
 
 --
 4- Iniciar o projeto
+npx expo start --localhost --android
 npx expo start
 npx expo start --clear
 
