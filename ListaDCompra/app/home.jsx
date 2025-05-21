@@ -34,6 +34,49 @@ export default function Home() {
     setItems(newItems);
   }
 
+  const unmarkItemBought = itemId => {
+    const newItems= items.map((item) => {
+        if (item.id == itemId) {
+            return{ ...item, bought: false}
+        }
+    });
+    setItems(newItems);
+  }
+
+  const removeItem = itemId => {
+    Alert.alert(
+      'Excluir produto?','Confirma a exclusão deste produto?',
+      [
+        {
+          text: 'Sim', onPress: () => {
+            const newItems = items.filter(item => item.id != itemId)
+            setItems(newItems);
+          }
+        },
+        {
+          text: 'Cancelar', style: 'cancel'
+        }
+      ]
+    )
+  }
+
+  const removeAll = () => {
+    Alert.alert(
+      "Limpar lista?", "Confirmaa exclusão de TODOS os produtos?",
+      [
+        {
+          text: 'Sim', 
+          onPress: () => {setItems([])}
+        },
+        {
+          text: 'Cancelar',
+          style: 'cancel'
+        }
+      ]
+    )
+
+  }
+
   return (
     <SafeAreaView style={{flex: 1}}>
       <ImageBackground
@@ -43,7 +86,7 @@ export default function Home() {
       >
         <View style={styles.header}>
             <Text style={styles.title}>Lista de Produtos</Text>
-            <Ionicons name="trash" size={32} color="#fff" />
+            <Ionicons name="trash" size={32} color="#fff" onPress={removeAll}/>
         </View> 
 
         <FlatList 
@@ -51,7 +94,12 @@ export default function Home() {
           data={items}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => 
-            <ItemList item={item}/>
+            <ItemList 
+              item={item} 
+              markItem={markItemBought}
+              unmarkItem= {unmarkItemBought}
+              removeItem= {removeItem} 
+            />
           }
         />
 
