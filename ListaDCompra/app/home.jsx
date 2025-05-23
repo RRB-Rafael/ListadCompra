@@ -21,7 +21,6 @@ export default function Home() {
       }
       setItems([...items, newItem]);
       setTextInput('');
-      //console.log(items)
     }
   }
 
@@ -30,6 +29,7 @@ export default function Home() {
         if (item.id == itemId) {
             return{ ...item, bought: true}
         }
+        return item;
     });
     setItems(newItems);
   }
@@ -39,6 +39,7 @@ export default function Home() {
         if (item.id == itemId) {
             return{ ...item, bought: false}
         }
+        return item;
     });
     setItems(newItems);
   }
